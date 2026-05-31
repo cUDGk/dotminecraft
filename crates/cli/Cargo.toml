@@ -6,6 +6,8 @@ license.workspace = true
 repository.workspace = true
 rust-version.workspace = true
 description = "Self-certifying tunnel for Minecraft Java servers: xxxx.minecraft addresses with no central registry."
+# internal workspace crate, not published to crates.io (lets the version-less path deps pass cargo-deny)
+publish = false
 
 [[bin]]
 name = "mc-tunnel"

@@ -6,6 +6,8 @@ license.workspace = true
 repository.workspace = true
 rust-version.workspace = true
 description = "Self-certifying name derivation, signed DHT records, and identity for mc-tunnel."
+# internal workspace crate, not published to crates.io (lets the version-less path deps pass cargo-deny)
+publish = false
 
 [lints]
 workspace = true
