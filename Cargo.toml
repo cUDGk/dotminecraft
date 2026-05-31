@@ -41,4 +41,6 @@ clap = { version = "4", features = ["derive"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 directories = "5"
-keyring = { version = "3", features = ["apple-native", "windows-native", "sync-secret-service"] }
+# linux-native (kernel keyutils) avoids a system libdbus dependency, so the crate builds
+# everywhere with no extra packages. Falls back to the locked-down key file if unavailable.
+keyring = { version = "3", features = ["apple-native", "windows-native", "linux-native"] }
