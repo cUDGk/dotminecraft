@@ -94,13 +94,13 @@ async fn wait_connected(handle: &NetHandle) {
 }
 
 // Stands up two full libp2p nodes (+DHT, +relay) in one process and tunnels real bytes.
-// On a shared CI runner (2 vCPUs) the 4 worker threads plus the other test binaries
-// oversubscribe the CPU, starving libp2p's stream-negotiation/yamux timers and resetting a
-// stream mid-transfer (surfaces as an "early eof"). It is reliable on a normal host, so it's
-// #[ignore]d for the default gate and exercised by the dedicated, uncontended `e2e` CI job
-// (and locally with `cargo test -- --ignored`).
+// It's reliable on a normal multi-core host (run it with `cargo test -- --ignored`), but on
+// GitHub's 2-vCPU shared runners the burst of 8 simultaneous tunnels races libp2p's substream
+// negotiation and one stream is reset before its echo completes (surfaces as an "early eof").
+// That's a property of the constrained CI host, not the proxy — the real cross-machine tunnel
+// is verified separately. So it's #[ignore]d to keep CI deterministic.
 #[tokio::test(flavor = "multi_thread", worker_threads = 4)]
-#[ignore = "in-process multi-node libp2p E2E; needs an uncontended host (see e2e CI job)"]
+#[ignore = "in-process multi-node libp2p E2E; flaky on constrained CI hosts — run locally with --ignored"]
 async fn full_tunnel_roundtrip_in_process() {
     let _g = exclusive().await;
     tokio::time::timeout(Duration::from_secs(90), run())
@@ -270,7 +270,7 @@ fn signed_record(id: &Identity, peer_id: String, addrs: Vec<String>, ts: u64) ->
 /// storage filter (honest nodes refuse the foreign record) and the resolver's keyid check in
 /// a live multi-node DHT — not just the unit tests.
 #[tokio::test(flavor = "multi_thread", worker_threads = 4)]
-#[ignore = "in-process multi-node libp2p E2E; needs an uncontended host (see e2e CI job)"]
+#[ignore = "in-process multi-node libp2p E2E; flaky on constrained CI hosts — run locally with --ignored"]
 async fn poisoning_does_not_win() {
     let _g = exclusive().await;
     tokio::time::timeout(Duration::from_secs(90), poison_run())
