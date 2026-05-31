@@ -1,0 +1,62 @@
+plugins {
+    id 'fabric-loom' version '1.7.4'
+    id 'java'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    // mc-tunnel only needs Minecraft + fabric-loader (no fabric-api), so no extra repos.
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+}
+
+// Bundle the prebuilt mc-tunnel daemon into the jar so the mod is self-contained. The
+// binary is copied from the cargo release build at package time (not committed to git).
+// Build it first with: cargo build --release -p mc-tunnel
+def generatedNative = layout.buildDirectory.dir("generated/native")
+
+tasks.register('bundleNative', Copy) {
+    description = "Copy prebuilt mc-tunnel binaries into the mod resources."
+    // Windows x86_64 (extend with more platforms as you cross-compile them).
+    from("${rootDir}/../target/release/mc-tunnel.exe") {
+        into "native/windows-x86_64"
+    }
+    into generatedNative
+    // Don't fail the build if a binary is missing; the mod degrades to "run agent manually".
+    doFirst {
+        if (!file("${rootDir}/../target/release/mc-tunnel.exe").exists()) {
+            logger.warn("mc-tunnel.exe not found — build it with `cargo build --release -p mc-tunnel`; the jar will ship without a bundled daemon.")
+        }
+    }
+}
+
+processResources {
+    dependsOn 'bundleNative'
+    // Fold the bundled binary into the jar's resources (but not into the sources jar —
+    // it isn't source).
+    from generatedNative
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+    withSourcesJar()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+}

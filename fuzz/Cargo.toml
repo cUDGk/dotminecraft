@@ -1,0 +1,38 @@
+# cargo-fuzz target crate (SPEC §9.9). Detached from the main workspace because
+# cargo-fuzz builds it with its own flags and a nightly toolchain.
+#
+# Run (needs nightly + a libFuzzer-capable toolchain; Linux/macOS):
+#   cargo install cargo-fuzz
+#   cargo +nightly fuzz run record_parse
+#   cargo +nightly fuzz run name_parse
+#
+# The always-on, cross-platform robustness check lives in crates/core/tests/robustness.rs.
+
+[package]
+name = "mc-tunnel-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[workspace]
+
+[dependencies]
+libfuzzer-sys = "0.4"
+mc-tunnel-core = { path = "../crates/core" }
+
+[[bin]]
+name = "record_parse"
+path = "fuzz_targets/record_parse.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "name_parse"
+path = "fuzz_targets/name_parse.rs"
+test = false
+doc = false
+bench = false

@@ -1,0 +1,29 @@
+[package]
+name = "mc-tunnel-net"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+description = "libp2p networking for mc-tunnel: swarm, Kademlia DHT, NAT traversal, and tunnel streams."
+
+[lints]
+workspace = true
+
+[dependencies]
+mc-tunnel-core = { path = "../core" }
+
+libp2p = { version = "0.56", features = [
+    "tokio", "tcp", "quic", "dns", "noise", "yamux",
+    "kad", "identify", "ping", "relay", "dcutr", "autonat", "mdns",
+    "ed25519", "macros",
+] }
+libp2p-stream = "0.4.0-alpha"
+
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time", "net", "io-util"] }
+futures = "0.3"
+
+anyhow.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+zeroize.workspace = true

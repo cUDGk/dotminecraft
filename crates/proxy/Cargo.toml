@@ -1,0 +1,20 @@
+[package]
+name = "mc-tunnel-proxy"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+description = "Bidirectional TCP <-> libp2p stream proxy for mc-tunnel."
+
+[lints]
+workspace = true
+
+[dependencies]
+mc-tunnel-net = { path = "../net" }
+
+tokio = { version = "1", features = ["rt", "macros", "sync", "net", "io-util", "time"] }
+tokio-util = { version = "0.7", features = ["compat"] }
+futures = "0.3"
+anyhow.workspace = true
+tracing.workspace = true

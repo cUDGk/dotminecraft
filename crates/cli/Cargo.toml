@@ -1,0 +1,36 @@
+[package]
+name = "mc-tunnel"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+description = "Self-certifying tunnel for Minecraft Java servers: xxxx.minecraft addresses with no central registry."
+
+[[bin]]
+name = "mc-tunnel"
+path = "src/main.rs"
+
+[lints]
+workspace = true
+
+[dependencies]
+mc-tunnel-core = { path = "../core" }
+mc-tunnel-net = { path = "../net" }
+mc-tunnel-proxy = { path = "../proxy" }
+clap.workspace = true
+anyhow.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+directories.workspace = true
+zeroize.workspace = true
+serde.workspace = true
+toml = "0.8"
+serde_json = "1"
+getrandom = "0.2"
+keyring.workspace = true
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal", "time"] }
+
+[dev-dependencies]
+# extra tokio bits the in-process integration test needs (TCP echo server + client)
+tokio = { version = "1", features = ["net", "io-util"] }

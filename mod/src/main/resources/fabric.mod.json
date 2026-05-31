@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "mc_tunnel",
+  "version": "${version}",
+  "name": "mc-tunnel",
+  "description": "Join xxxx.minecraft self-certifying servers through a local mc-tunnel agent. The mod holds no keys; it only asks the agent to resolve a name and rewrites the connection to localhost.",
+  "authors": ["cUDGk"],
+  "contact": {
+    "repo": "https://github.com/cUDGk/dotminecraft"
+  },
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.cudgk.mctunnel.McTunnelMod"]
+  },
+  "mixins": ["mc-tunnel.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "1.21.x",
+    "java": ">=21"
+  }
+}

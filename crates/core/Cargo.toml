@@ -1,0 +1,25 @@
+[package]
+name = "mc-tunnel-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+description = "Self-certifying name derivation, signed DHT records, and identity for mc-tunnel."
+
+[lints]
+workspace = true
+
+[dependencies]
+ed25519-dalek.workspace = true
+sha2.workspace = true
+data-encoding.workspace = true
+rand_core.workspace = true
+zeroize.workspace = true
+serde.workspace = true
+serde_bytes.workspace = true
+ciborium.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+hex = "0.4"

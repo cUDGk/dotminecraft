@@ -1,0 +1,13 @@
+[2m2026-05-30T14:49:09.155164Z[0m [33m WARN[0m [2mlibp2p_kad::behaviour[0m[2m:[0m Failed to trigger bootstrap: No known peers.
+Relay/bootstrap node running.
+  peer id : 12D3KooWLxtCpFeua2Ht2jt2NFnbjs4B6jnUdpJYVb6dhC4LH9Tv
+Add one of these to other nodes' config.toml [network] bootstrap:
+  /ip4/100.107.25.50/udp/4001/quic-v1/p2p/12D3KooWLxtCpFeua2Ht2jt2NFnbjs4B6jnUdpJYVb6dhC4LH9Tv
+  /ip4/10.5.0.2/udp/4001/quic-v1/p2p/12D3KooWLxtCpFeua2Ht2jt2NFnbjs4B6jnUdpJYVb6dhC4LH9Tv
+  /ip4/192.168.1.12/udp/4001/quic-v1/p2p/12D3KooWLxtCpFeua2Ht2jt2NFnbjs4B6jnUdpJYVb6dhC4LH9Tv
+  /ip4/127.0.0.1/udp/4001/quic-v1/p2p/12D3KooWLxtCpFeua2Ht2jt2NFnbjs4B6jnUdpJYVb6dhC4LH9Tv
+  /ip4/100.107.25.50/tcp/4001/p2p/12D3KooWLxtCpFeua2Ht2jt2NFnbjs4B6jnUdpJYVb6dhC4LH9Tv
+  /ip4/10.5.0.2/tcp/4001/p2p/12D3KooWLxtCpFeua2Ht2jt2NFnbjs4B6jnUdpJYVb6dhC4LH9Tv
+  /ip4/192.168.1.12/tcp/4001/p2p/12D3KooWLxtCpFeua2Ht2jt2NFnbjs4B6jnUdpJYVb6dhC4LH9Tv
+  /ip4/127.0.0.1/tcp/4001/p2p/12D3KooWLxtCpFeua2Ht2jt2NFnbjs4B6jnUdpJYVb6dhC4LH9Tv
+Press Ctrl-C to stop.

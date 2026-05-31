@@ -1,0 +1,44 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/core",
+    "crates/net",
+    "crates/proxy",
+    "crates/cli",
+]
+# cargo-fuzz builds this separately with a nightly toolchain.
+exclude = ["fuzz"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/cUDGk/dotminecraft"
+rust-version = "1.80"
+
+# §9.1: forbid unsafe across the whole workspace. Any future exception must be
+# opted into locally with an audited justification, never silently.
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.dependencies]
+# core crypto / encoding
+ed25519-dalek = { version = "2", features = ["rand_core", "zeroize"] }
+sha2 = "0.10"
+data-encoding = "2"
+rand_core = { version = "0.6", features = ["getrandom"] }
+zeroize = { version = "1", features = ["zeroize_derive"] }
+
+# serialization
+serde = { version = "1", features = ["derive"] }
+serde_bytes = "0.11"
+ciborium = "0.2"
+
+# errors / cli / logging
+thiserror = "2"
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+directories = "5"
+keyring = { version = "3", features = ["apple-native", "windows-native", "sync-secret-service"] }
