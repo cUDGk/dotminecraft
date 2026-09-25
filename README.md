@@ -4,7 +4,7 @@
 
 ### `xxxx.minecraft` 自己証明アドレスで Minecraft サーバーを公開・接続する
 
-[![Rust](https://img.shields.io/badge/Rust-1.80%2B-000000?style=flat&logo=rust&logoColor=white)](Cargo.toml)
+[![Rust](https://img.shields.io/badge/Rust-1.88%2B-000000?style=flat&logo=rust&logoColor=white)](Cargo.toml)
 [![Fabric](https://img.shields.io/badge/Fabric-MC%201.21.x-DBD0B4?style=flat&logo=fastapi&logoColor=white)](mod)
 [![libp2p](https://img.shields.io/badge/libp2p-0.56-7B36DD?style=flat)](crates/net)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat)](LICENSE)
