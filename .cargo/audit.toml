@@ -3,7 +3,5 @@
 # an upstream libp2p dependency bump.
 [advisories]
 ignore = [
-    "RUSTSEC-2026-0119", # hickory-proto < 0.26.1 DNS-encode CPU DoS (libp2p-pinned; low exposure)
-    "RUSTSEC-2026-0118", # hickory-proto NSEC3 loop in DNSSEC validation (libp2p-dns doesn't validate; no fix)
     "RUSTSEC-2024-0436", # paste unmaintained (build-time proc-macro, no runtime impact)
 ]

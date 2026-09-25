@@ -46,20 +46,15 @@ TCP). Of particular interest:
 
 ## Known transitive advisories
 
-These come from `hickory` (the DNS library) pulled transitively by libp2p's DNS and mDNS
-support. They are **DoS-class** (CPU/loop), not memory-safety, auth-bypass, or key
-compromise, and **cannot be fixed by us**: libp2p pins `hickory ^0.25` and some have no
-patched release. They are tracked (with removal triggers) in `deny.toml` / `.cargo/audit.toml`.
+Tracked (with removal triggers) in `deny.toml` / `.cargo/audit.toml`. It cannot be fixed by
+us: the fix must come from libp2p's transitive dependencies.
 
 | Advisory | What | Exposure in mc-tunnel |
 |---|---|---|
-| RUSTSEC-2026-0119 | O(n²) DNS-message *encoding* | We only encode our own bounded names (multiaddrs / mDNS records); an attacker can't force a pathological message. |
-| RUSTSEC-2026-0118 | NSEC3 validation can loop | Only reachable with DNSSEC validation, which libp2p-dns does **not** enable. |
 | RUSTSEC-2024-0436 | `paste` unmaintained | Build-time proc-macro (Linux netlink path); no runtime impact. |
 
-**Mitigation for hardened deployments:** use `/ip4` (not `/dns4`) bootstrap addresses to
-avoid the DNS resolver path entirely. These ignores will be removed as soon as a libp2p
-release bumps the affected dependencies.
+The earlier `hickory` DNS advisories (RUSTSEC-2026-0118 / 0119) are resolved since libp2p 0.57,
+which moved to `hickory 0.26`.
 
 ## Accepted residual risks
 
